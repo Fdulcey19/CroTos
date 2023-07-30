@@ -1,0 +1,24 @@
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.display {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.timer-btn {
+    flex: 1;
+    margin: 5px;
+}
+
+.timer-display {
+    font-size: 20px;
+    margin-top: 5px;
+}
