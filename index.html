@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="./media/logo.png"/>
     <title>CroTos</title>
     <!-- CDN Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -17,9 +18,11 @@
         a {
             text-decoration: none;
         }
-        h1{
+
+        h1 {
             font-size: 35px;
         }
+
         .container {
             text-align: center;
             margin-top: 50px;
@@ -27,46 +30,58 @@
             height: 750px;
             position: relative;
         }
-        .circle{
+
+        .circle {
             border-radius: 50%;
-            width: 120px;
-            height: 120px;
+            width: 160px;
+            height: 160px;
             border: 1px solid #fff;
             color: #fff;
             margin: 50px auto;
             display: flex;
             justify-content: center;
-            align-items: center;           
+            align-items: center;
+            -webkit-box-shadow: 13px 19px 91px 21px rgba(0, 0, 0, 0.55);
+            -moz-box-shadow: 13px 19px 91px 21px rgba(0, 0, 0, 0.55);
+            box-shadow: 13px 19px 91px 21px rgba(0, 0, 0, 0.55);
         }
-        .circle::before{
+
+        .circle::before {
             content: '';
             border-radius: 50%;
             z-index: -1;
             position: absolute;
-            width: 160px;
-            height: 160px;
-            left: calc(200px - 80px);
-            top: calc(180px - 80px);
+            width: 200px;
+            height: 200px;
+            left: calc(200px - 100px);
+            top: calc(175px - 80px);
             background-color: #1d1d1d;
         }
-        .seconds-sphere{
+
+        .seconds-sphere {
             position: absolute;
             width: 20px;
             height: 20px;
             border-radius: 50%;
             background-color: #fff;
             left: calc(200px - 10px);
-            top: calc(180px - 10px);
+            top: calc(195px - 10px);
             animation: rotacion 60s linear infinite;
             animation-play-state: paused;
         }
 
         @keyframes rotacion {
-            from {transform: rotate(-90deg) translate(60px);}
-            to{transform: rotate(270deg) translate(60px);}
+            from {
+                transform: rotate(-90deg) translate(80px);
+            }
+
+            to {
+                transform: rotate(270deg) translate(80px);
+            }
         }
+
         .display {
-            font-size: 25px;
+            font-size: 45px;
             margin-bottom: 50px;
         }
 
@@ -91,9 +106,27 @@
 
         .opciones {
             width: 120px;
-
+            color: #3b3030;
+            -webkit-box-shadow: 10px 4px 34px 2px rgba(0, 0, 0, 0.5);
+            -moz-box-shadow: 10px 4px 34px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 10px 4px 34px 2px rgba(0, 0, 0, 0.23);
         }
-
+        .crackBtn{
+            background-color: #038203;
+            color: #ffffff;
+        }
+        .crackBtn:hover{
+            background-color: #01b401;
+            color: #e7e7e7;
+        }
+        #ascensoBtn{
+            background-color: #ff471a;
+            color: #ffffff;
+        }
+        #ascensoBtn:hover{
+            background-color: #dc3f18;
+            color: #ffffff;
+        }
         .timer_p {
             display: flex;
             flex-direction: column;
@@ -123,15 +156,20 @@
         .intervalo .form-select {
             width: 200px;
         }
+
+        .spam {
+            font-size: 12px;
+            opacity: 70%;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>CroTos</h1>
-        <h6>Cronometro para Tostadores</h6>
+        <h6 class="spam">Cronometro para Tostadores</h6>
         <div class="circle">
-            <div class="display mt-5" id="display">00:00:00</div>
+            <div class="display mt-5" id="display">00:00</div>
 
         </div>
         <div class="seconds-sphere" id="seconds-sphere"></div>
@@ -146,7 +184,7 @@
         <div id="intervalo">
             <div class="intervalo">
                 <div class="d-flex">
-                    <i class="bi bi-alarm me-2"></i>
+                    <i class="bi bi-alarm mb-1 me-2 fs-5"></i>
                     <select class="form-select form-select-sm interval" aria-label=" Intervalo De Tiempo" id="interval">
                         <option selected>Intervalo De Tiempo</option>
                         <option value="15000">15 segundos</option>
@@ -155,7 +193,7 @@
                     </select>
                 </div>
                 <div>
-                    <p>seleccione el tiempo que quiere que suene un recordartorio</p>
+                    <p class="fw-bold spam mt-1">seleccione intervalo de recordartorio</p>
                 </div>
             </div>
         </div>
@@ -163,17 +201,18 @@
         <div class="row mt-2">
 
             <div class="col-6 timer-btn">
-                <button class="btn bg-danger-subtle mt-3 opciones" id="ascensoBtn" onclick="asenso()">Ascenso
+                <button class="btn mt-3 opciones" id="ascensoBtn" onclick="asenso()">Ascenso
                     °C</button>
-                <button class="btn bg-success-subtle mt-3 opciones" id="crack1Btn" onclick="crack1()">Crack 1</button>
-                <button class="btn bg-success-subtle mt-3 opciones" id="crack2Btn" onclick="crack2()">Crack 2</button>
-                <button class="btn btn-danger mt-3 opciones" id="finalBtn" onclick="finaltimer()">Terminar</button>
+                <button class="btn crackBtn mt-3 opciones" id="crack1Btn" onclick="crack1()">Crack 1</button>
+                <button class="btn crackBtn mt-3 opciones" id="crack2Btn" onclick="crack2()">Crack 2</button>
+                <button class="btn btn-danger mt-3 opciones text-light" id="finalBtn" onclick="finaltimer()">Terminar <i
+                        class="bi bi-x-diamond-fill"></i> </button>
             </div>
             <div class="col-6 timer_p">
-                <p class="timer-display" id="ascensoTimer">00:00:00</p>
-                <p class="timer-display" id="crack1Timer">00:00:00</p>
-                <p class="timer-display mt-2" id="crack2Timer">00:00:00</p>
-                <p class="timer-display mt-2" id="finalTimer">00:00:00</p>
+                <p class="timer-display mt-4" id="ascensoTimer">00:00</p>
+                <p class="timer-display mt-2" id="crack1Timer">00:00</p>
+                <p class="timer-display mt-2" id="crack2Timer">00:00</p>
+                <p class="timer-display mt-2" id="finalTimer">00:00</p>
             </div>
 
             <audio id="beep" style="display: none;">

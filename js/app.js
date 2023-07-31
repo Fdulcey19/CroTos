@@ -3,16 +3,14 @@ let startTime;
 let running = false;
 let interval;
 let secondsSphere = document.getElementById("seconds-sphere")
+
+
 function formatTime(milliseconds) {
   const totalSeconds = Math.floor(milliseconds / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-    2,
-    "0"
-  )}:${String(seconds).padStart(2, "0")}`;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
 function updateDisplay() {
@@ -56,15 +54,15 @@ function startStopTimer() {
 
 function resetTimer() {
   clearInterval(timerInterval);
-  document.getElementById("display").textContent = "00:00:00";
-  document.getElementById("ascensoTimer").textContent = "00:00:00";
-  document.getElementById("crack1Timer").textContent = "00:00:00";
-  document.getElementById("crack2Timer").textContent = "00:00:00";
-  document.getElementById("finalTimer").textContent = "00:00:00";
+  document.getElementById("display").textContent = "00:00";
+  document.getElementById("ascensoTimer").textContent = "00:00";
+  document.getElementById("crack1Timer").textContent = "00:00";
+  document.getElementById("crack2Timer").textContent = "00:00";
+  document.getElementById("finalTimer").textContent = "00:00";
   clearInterval(alertInterval);
   startStopBtn.style.display = "inline-block";
   resetBtn.style.display = "none";
-  secondsSphere.style.transform = ' rotate(-90deg) translate(60px)';
+  secondsSphere.style.transform = ' rotate(-90deg) translate(80px)';
 secondsSphere.style.animation = 'none';
 
   document.getElementById("intervalo").style.display = "inline-block"
