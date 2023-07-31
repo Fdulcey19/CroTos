@@ -2,7 +2,7 @@ let timerInterval;
 let startTime;
 let running = false;
 let interval;
-
+let secondsSphere = document.getElementById("seconds-sphere")
 function formatTime(milliseconds) {
   const totalSeconds = Math.floor(milliseconds / 1000);
   const hours = Math.floor(totalSeconds / 3600);
@@ -30,7 +30,7 @@ function startStopTimer() {
       icon: "error",
       title: "Error",
       text: "Por favor, seleccione un intervalo de tiempo antes de iniciar el cronómetro.",
-      timer: 3000, // Duración del mensaje en milisegundos (2 segundos en este caso)
+      timer: 2000, // Duración del mensaje en milisegundos (2 segundos en este caso)
       timerProgressBar: true,
       showConfirmButton: false
     });
@@ -40,6 +40,8 @@ function startStopTimer() {
   if (running) {
     clearInterval(timerInterval);
   } else {
+    secondsSphere.style.animation = ' rotacion 60s linear infinite'
+    secondsSphere.style.animationPlayState = 'running'
     startTime = new Date().getTime();
     timerInterval = setInterval(updateDisplay, 1000);
   }
@@ -62,6 +64,9 @@ function resetTimer() {
   clearInterval(alertInterval);
   startStopBtn.style.display = "inline-block";
   resetBtn.style.display = "none";
+  secondsSphere.style.transform = ' rotate(-90deg) translate(60px)';
+secondsSphere.style.animation = 'none';
+
   document.getElementById("intervalo").style.display = "inline-block"
   running = false;
 }
@@ -102,6 +107,7 @@ function finaltimer() {
   }
   if (!running) {
     clearInterval(alertInterval);
+    secondsSphere.style.animationPlayState = 'paused'
     resetBtn.style.display = "inline-block";
   }
 }

@@ -17,16 +17,57 @@
         a {
             text-decoration: none;
         }
-
+        h1{
+            font-size: 35px;
+        }
         .container {
             text-align: center;
             margin-top: 50px;
             width: 400px;
+            height: 750px;
+            position: relative;
+        }
+        .circle{
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            border: 1px solid #fff;
+            color: #fff;
+            margin: 50px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;           
+        }
+        .circle::before{
+            content: '';
+            border-radius: 50%;
+            z-index: -1;
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            left: calc(200px - 80px);
+            top: calc(180px - 80px);
+            background-color: #1d1d1d;
+        }
+        .seconds-sphere{
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+            left: calc(200px - 10px);
+            top: calc(180px - 10px);
+            animation: rotacion 60s linear infinite;
+            animation-play-state: paused;
         }
 
+        @keyframes rotacion {
+            from {transform: rotate(-90deg) translate(60px);}
+            to{transform: rotate(270deg) translate(60px);}
+        }
         .display {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 25px;
+            margin-bottom: 50px;
         }
 
         .btn-container {
@@ -60,7 +101,7 @@
         }
 
         .footer {
-            margin-top: 80px;
+            margin-top: 20px;
         }
 
         .controladores {
@@ -89,7 +130,11 @@
     <div class="container">
         <h1>CroTos</h1>
         <h6>Cronometro para Tostadores</h6>
-        <div class="display mt-5" id="display">00:00:00</div>
+        <div class="circle">
+            <div class="display mt-5" id="display">00:00:00</div>
+
+        </div>
+        <div class="seconds-sphere" id="seconds-sphere"></div>
 
         <div class="d-flex align-items-center flex-column container-controladores">
             <button class="btn btn-success controladores mt-3" id="startStopBtn"><i class="bi bi-play"></i>
