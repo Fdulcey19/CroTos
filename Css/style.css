@@ -42,3 +42,20 @@ a{
 .footer{
     margin-top: 80px;
 }
+.controladores{
+    width: 140px;
+}
+.container-controladores{
+    height: 50px;
+}
+.intervalo{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.intervalo .form-select{
+    width: 200px;
+}

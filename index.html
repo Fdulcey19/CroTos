@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- Style Css -->
     <link rel="stylesheet" href="./css/style.css">
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -19,15 +21,34 @@
         <h6>Cronometro para Tostadores</h6>
         <div class="display mt-5" id="display">00:00:00</div>
 
-        <button class="btn btn-primary mt-3" id="startStopBtn">Iniciar</button>
-        <button class="btn btn-danger mt-3" id="resetBtn">Reiniciar</button>
+        <div class="d-flex align-items-center flex-column container-controladores">
+            <button class="btn btn-success controladores mt-3" id="startStopBtn"><i class="bi bi-play"></i> Iniciar</button>
+            <button class="btn btn-danger controladores mt-3" style="display: none;" id="resetBtn"><i class="bi bi-arrow-clockwise"></i> Reiniciar</button>
+        </div>
 
-        <div class="row mt-5">
+        <div id="intervalo">
+        <div class="intervalo" > 
+            <div class="d-flex">
+                <i class="bi bi-alarm me-2"></i>
+                <select class="form-select form-select-sm interval" aria-label=" Intervalo De Tiempo" id="interval">
+                    <option selected>Intervalo De Tiempo</option>
+                    <option value="15000">15 segundos</option>
+                    <option value="30000">30 segundos</option>
+                    <option value="60000">60 segundos</option>
+                </select>
+            </div>
+            <div>
+                <p>seleccione el tiempo que quiere que suene un recordartorio</p>
+              </div>
+        </div>
+    </div>
+
+        <div class="row mt-2">
 
             <div class="col-6 timer-btn">
-                <button class="btn btn-success mt-3 opciones" id="ascensoBtn" onclick="asenso()">Ascenso °C</button>
-                <button class="btn btn-success mt-3 opciones" id="crack1Btn" onclick="crack1()">Crack 1</button>
-                <button class="btn btn-success mt-3 opciones" id="crack2Btn" onclick="crack2()">Crack 2</button>
+                <button class="btn bg-danger-subtle mt-3 opciones" id="ascensoBtn" onclick="asenso()">Ascenso °C</button>
+                <button class="btn bg-success-subtle mt-3 opciones" id="crack1Btn" onclick="crack1()">Crack 1</button>
+                <button class="btn bg-success-subtle mt-3 opciones" id="crack2Btn" onclick="crack2()">Crack 2</button>
                 <button class="btn btn-danger mt-3 opciones" id="finalBtn" onclick="finaltimer()">Terminar</button>
             </div>
             <div class="col-6 timer_p">
@@ -37,6 +58,9 @@
                 <p class="timer-display mt-2" id="finalTimer">00:00:00</p>
             </div>
 
+            <audio id="beep" style="display: none;">
+                <source src="./media/sonido.mp3" type="audio/mpeg">
+            </audio>
 
         </div>
     </div>

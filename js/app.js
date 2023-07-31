@@ -1,6 +1,7 @@
 let timerInterval;
 let startTime;
 let running = false;
+let interval;
 
 function formatTime(milliseconds) {
   const totalSeconds = Math.floor(milliseconds / 1000);
@@ -21,16 +22,34 @@ function updateDisplay() {
 }
 
 function startStopTimer() {
+  let selectedInterval = document.getElementById("interval").value;
+  
+  if (selectedInterval === "Intervalo De Tiempo") {
+    // El usuario no ha seleccionado un intervalo válido, mostrar mensaje de error con SweetAlert2
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Por favor, seleccione un intervalo de tiempo antes de iniciar el cronómetro.",
+      timer: 3000, // Duración del mensaje en milisegundos (2 segundos en este caso)
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
+    return;
+  }
+
   if (running) {
     clearInterval(timerInterval);
-    document.getElementById("startStopBtn").textContent = "Iniciar";
   } else {
     startTime = new Date().getTime();
     timerInterval = setInterval(updateDisplay, 1000);
-    document.getElementById("startStopBtn").textContent = "Detener";
   }
 
   running = !running;
+
+  if (running) {
+    startStopBtn.style.display = "none";
+    document.getElementById("intervalo").style.display = "none";
+  }
 }
 
 function resetTimer() {
@@ -40,7 +59,10 @@ function resetTimer() {
   document.getElementById("crack1Timer").textContent = "00:00:00";
   document.getElementById("crack2Timer").textContent = "00:00:00";
   document.getElementById("finalTimer").textContent = "00:00:00";
-  document.getElementById("startStopBtn").textContent = "Iniciar";
+  clearInterval(alertInterval);
+  startStopBtn.style.display = "inline-block";
+  resetBtn.style.display = "none";
+  document.getElementById("intervalo").style.display = "inline-block"
   running = false;
 }
 
@@ -50,24 +72,6 @@ const timers = {
   crack2: { startTime: null, timerInterval: null },
 };
 
-function startStopIndividualTimer(timerName) {
-  const btn = document.getElementById(`${timerName}Btn`);
-  const timerDisplay = document.getElementById(`${timerName}Timer`);
-
-  if (timers[timerName].timerInterval) {
-    clearInterval(timers[timerName].timerInterval);
-    timers[timerName].timerInterval = null;
-    btn.textContent = `Iniciar ${timerName}`;
-  } else {
-    timers[timerName].startTime = new Date().getTime();
-    timers[timerName].timerInterval = setInterval(() => {
-      const currentTime = new Date().getTime();
-      const elapsedTime = currentTime - timers[timerName].startTime;
-      timerDisplay.textContent = formatTime(elapsedTime);
-    }, 1000);
-    btn.textContent = `Detener ${timerName}`;
-  }
-}
 
 function getDisplayValue() {
   const displayValue = document.getElementById("display").textContent;
@@ -75,34 +79,51 @@ function getDisplayValue() {
 }
 
 function asenso() {
-    const displayValue = getDisplayValue();
-    console.log("Valor del display principal:", displayValue);
-    ascensoTimer.innerHTML = displayValue;
+  const displayValue = getDisplayValue();
+  ascensoTimer.innerHTML = displayValue;
+}
+
+function crack1() {
+  const displayValue = getDisplayValue();
+  crack1Timer.innerHTML = displayValue;
+}
+
+function crack2() {
+  const displayValue = getDisplayValue();
+  crack2Timer.innerHTML = displayValue;
+}
+function finaltimer() {
+  const displayValue = getDisplayValue();
+
+  finalTimer.innerHTML = displayValue;
+  if (running) {
+    clearInterval(timerInterval); // Detiene el intervalo del cronómetro principal
+    running = false;
   }
-  
-  function crack1() {
-      const displayValue = getDisplayValue();
-      console.log("Valor del display principal:", displayValue);
-      crack1Timer.innerHTML = displayValue;
-    }
-  
-    function crack2() {
-      const displayValue = getDisplayValue();
-      console.log("Valor del display principal:", displayValue);
-      crack2Timer.innerHTML = displayValue;
-    }
-    function finaltimer() {
-        const displayValue = getDisplayValue();
-        console.log("Valor del display principal:", displayValue);
-        finalTimer.innerHTML = displayValue;
-        if (running) {
-          clearInterval(timerInterval); // Detiene el intervalo del cronómetro principal
-          document.getElementById("startStopBtn").textContent = "Iniciar";
-          running = false;
-        }
-      }
-  
+  if (!running) {
+    clearInterval(alertInterval);
+    resetBtn.style.display = "inline-block";
+  }
+}
 
+function playBeep() {
+  // Obtener el elemento de audio
+  const audioElement = document.getElementById("beep");
 
-document.getElementById("startStopBtn").addEventListener("click", startStopTimer);
+  // Reproducir el sonido
+  audioElement.play();
+}
+
+document
+  .getElementById("startStopBtn")
+  .addEventListener("click", startStopTimer);
 document.getElementById("resetBtn").addEventListener("click", resetTimer);
+
+// Reproducir el sonido cada 5 segundos si el cronómetro principal está en funcionamiento
+let alertInterval;
+document.getElementById("startStopBtn").addEventListener("click", () => {
+  let interval = document.getElementById("interval").value;
+  if (running) {
+    alertInterval = setInterval(playBeep, interval);
+  }
+});
